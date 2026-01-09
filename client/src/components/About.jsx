@@ -582,7 +582,7 @@ function About() {
             rel="noopener noreferrer"
             className="bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
           >
-            <div className="w-20 h-20 bg-sky-500 rounded-full flex items-center justify-center mb-4 group-hover:bg-sky-600 transition duration-300">
+            <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center mb-4 group-hover:bg-gray-900 transition duration-300">
               <svg
                 className="w-10 h-10 text-white"
                 fill="currentColor"
