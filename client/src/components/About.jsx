@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import GalaxyBackground from "./GalaxyBackground";
+import profileImage from "../assets/profile.jpg";
 
 function About() {
   // Intersection observer for scroll animations
@@ -102,9 +103,8 @@ function About() {
         {/* Profile Picture */}
         <div className="flex items-center justify-center w-full md:w-1/2 mb-8 md:mb-0">
           <div className="w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center overflow-hidden shadow-2xl border-8 border-gray-800">
-            {/* Replace src with your profile image path */}
             <img
-              src="/src/assets/profile.jpg"
+              src={profileImage}
               alt="Profile"
               className="w-[370px] h-[370px] object-cover rounded-full"
             />
