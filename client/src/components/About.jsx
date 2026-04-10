@@ -474,7 +474,7 @@ function About() {
 
             <div className="flex gap-3">
               <a
-                href="https://github.com/aloksisodiya"
+                href="https://github.com/aloksisodiya/n8n-exchange"
                 className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 GitHub
