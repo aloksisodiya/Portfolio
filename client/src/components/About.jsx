@@ -10,14 +10,7 @@ function About() {
   const [aboutMeVisible, setAboutMeVisible] = useState(false);
   const [skillsVisible, setSkillsVisible] = useState(false);
   const [workExperienceVisible, setWorkExperienceVisible] = useState(false);
-
-  // Contact form state
-  const [formData, setFormData] = useState({
-    email: "",
-    query: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+  const [experienceScrollProgress, setExperienceScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +25,12 @@ function About() {
       if (workExperienceRef.current) {
         const rect = workExperienceRef.current.getBoundingClientRect();
         if (rect.top < window.innerHeight - 100) setWorkExperienceVisible(true);
+
+        const start = window.innerHeight;
+        const end = -rect.height * 0.35;
+        const rawProgress = (start - rect.top) / (start - end);
+        const clampedProgress = Math.max(0, Math.min(1, rawProgress));
+        setExperienceScrollProgress(clampedProgress);
       }
     };
     window.addEventListener("scroll", handleScroll);
@@ -53,45 +52,6 @@ function About() {
       return () => clearTimeout(timeout);
     }
   }, [displayedText, text]);
-
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Create mailto link
-      const subject = encodeURIComponent("Portfolio Contact Form Submission");
-      const body = encodeURIComponent(
-        `Hello Alok,\n\nYou have received a new message from your portfolio website:\n\nFrom: ${formData.email}\n\nMessage:\n${formData.query}\n\nBest regards,\n${formData.email}`
-      );
-      const mailtoLink = `mailto:aloksisodiya07@gmail.com?subject=${subject}&body=${body}`;
-
-      // Open email client
-      window.location.href = mailtoLink;
-
-      // Reset form and show success message
-      setFormData({ email: "", query: "" });
-      setSubmitMessage(
-        "Thank you! Your email client has been opened with the message."
-      );
-    } catch (error) {
-      setSubmitMessage("Sorry, there was an error. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-      // Clear message after 5 seconds
-      setTimeout(() => setSubmitMessage(""), 5000);
-    }
-  };
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 to-black relative">
@@ -272,13 +232,22 @@ function About() {
                 <p className="text-green-400 font-semibold mb-2">
                   Backend Developer
                 </p>
-                <p className="text-gray-300 text-sm">May 2025 - Nov 2025</p>
+                <p className="text-gray-300 text-sm">May 2025 - Dec 2025</p>
               </div>
             </div>
 
             {/* Timeline Line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-600 transform -translate-x-1/2"></div>
-            <div className="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 pointer-events-none">
+              <div className="h-full w-px bg-gray-600"></div>
+              <div className="absolute left-1/2 top-8 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+              <div
+                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.9)]"
+                style={{
+                  top: `${experienceScrollProgress * 100}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              ></div>
+            </div>
 
             {/* Right side - Work Description */}
             <div className="md:w-1/2 pl-8">
@@ -290,46 +259,50 @@ function About() {
                   <li className="flex items-start">
                     <span className="text-green-400 mr-2">•</span>
                     <span>
-                      Applied core engineering principles to solve complex
-                      system challenges, contributing to more reliable and
-                      maintainable software solutions.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>
-                      Developed and documented RESTful APIs using Swagger,
-                      enhancing team collaboration and onboarding efficiency.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>
-                      Reduced API latency by 80% through optimization
-                      techniques, improving system responsiveness for users.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>
-                      Designed and implemented a scalable service-based
-                      architecture to enhance system modularity and
+                      Led the design and development of a real-time role-based
+                      notification system using AWS SNS and Firebase Cloud
+                      Messaging (FCM), ensuring scalability, modularity, and
                       maintainability.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-400 mr-2">•</span>
                     <span>
-                      Integrated a push notification system using AWS SNS and
-                      Firebase Cloud Messaging (FCM) for real-time alerts.
+                      Developed and optimized RESTful APIs using Node.js and
+                      Express.js, reducing latency by up to 80% and improving
+                      system performance.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-400 mr-2">•</span>
                     <span>
-                      Utilized AWS S3 for secure storage of images and
-                      documents, incorporating custom file and image compression
-                      logic to minimize storage costs.
+                      Refactored and optimized complex PostgreSQL queries,
+                      achieving 30-50% faster response times and enhanced
+                      database efficiency.
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>
+                      Created and maintained API documentation using Swagger
+                      (OpenAPI), improving developer experience, cross-team
+                      collaboration, and onboarding speed.
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>
+                      Integrated AWS S3 for secure file storage, implementing
+                      image compression and file optimization techniques to
+                      reduce storage costs.
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>
+                      Applied software engineering best practices, including
+                      system design, performance tuning, and code optimization
+                      to improve reliability and maintainability.
                     </span>
                   </li>
                 </ul>
@@ -356,7 +329,13 @@ function About() {
                     AWS SNS
                   </span>
                   <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                    FCM
+                  </span>
+                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
                     AWS S3
+                  </span>
+                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                    Swagger (OpenAPI)
                   </span>
                 </div>
               </div>
@@ -379,8 +358,17 @@ function About() {
             </div>
 
             {/* Timeline Line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-600 transform -translate-x-1/2"></div>
-            <div className="hidden md:block absolute left-1/2 top-8 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 pointer-events-none">
+              <div className="h-full w-px bg-gray-600"></div>
+              <div className="absolute left-1/2 top-8 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+              <div
+                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.9)]"
+                style={{
+                  top: `${experienceScrollProgress * 100}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              ></div>
+            </div>
 
             {/* Right side - Work Description */}
             <div className="md:w-1/2 pl-8">
@@ -427,8 +415,155 @@ function About() {
           Projects
         </h2>
 
-        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Project 1 - E-commerce */}
+        <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Project 1 - n8n Exchange */}
+          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="mb-4">
+              <h3 className="text-xl font-bold text-white mb-2">
+                n8n Exchange - Automated Cryptocurrency Trading Platform
+              </h3>
+              <p className="text-gray-300 text-sm mb-4">
+                Built a full-stack automated trading platform with React.js,
+                Node.js/Express, and MongoDB, featuring a drag-and-drop workflow
+                builder for real-time, node-based strategy execution.
+              </p>
+              <ul className="text-gray-300 text-sm space-y-2 mb-4">
+                <li className="flex items-start">
+                  <span className="text-emerald-400 mr-2">•</span>
+                  <span>
+                    Architected scalable, secure backend systems using RESTful
+                    APIs and Firebase Authentication, ensuring data consistency
+                    during concurrent executions and supporting 7+ automated
+                    trading triggers.
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-emerald-400 mr-2">•</span>
+                  <span>
+                    Engineered low-latency trading infrastructure with real-time
+                    market data via CoinMarketCap API and Socket.io, alongside
+                    portfolio management, analytics, and historical price
+                    tracking.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mb-4">
+              <h4 className="text-lg font-semibold text-emerald-400 mb-3">
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                  MERN
+                </span>
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                  WebSockets
+                </span>
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                  Socket.io
+                </span>
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                  Firebase Auth
+                </span>
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                  CoinMarketCap API
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <a
+                href="https://github.com/aloksisodiya"
+                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          {/* Project 2 - Resume Sync */}
+          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="mb-4">
+              <h3 className="text-xl font-bold text-white mb-2">
+                ResumeSync - AI-Powered ATS Resume Matcher
+              </h3>
+              <p className="text-gray-300 text-sm mb-4">
+                Developed a full-stack ATS resume matching platform using React
+                19, Node.js/Express, MongoDB, and Groq-assisted feedback with a
+                custom weighted scoring model.
+              </p>
+              <ul className="text-gray-300 text-sm space-y-2 mb-4">
+                <li className="flex items-start">
+                  <span className="text-blue-400 mr-2">•</span>
+                  <span>
+                    Built secure authentication flows with JWT, Google OAuth
+                    2.0, and OTP-based password recovery.
+                  </span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-400 mr-2">•</span>
+                  <span>
+                    Implemented efficient file processing, keyword extraction,
+                    automated cleanup of uploaded files, and dynamic PDF report
+                    generation for analysis results.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mb-4">
+              <h4 className="text-lg font-semibold text-blue-400 mb-3">
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  React 19
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  MERN Stack
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  Node.js
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  Express.js
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  MongoDB
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  Groq AI
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  Google OAuth 2.0
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  JWT
+                </span>
+                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  OTP Recovery
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <a
+                href="https://github.com/aloksisodiya/AI-Resume-Job-Description-Matcher"
+                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://ai-resume-job-description-matcher-v.vercel.app/"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+              >
+                Live Demo
+              </a>
+            </div>
+          </div>
+
+          {/* Project 3 - E-commerce */}
           <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">
@@ -460,12 +595,12 @@ function About() {
                 <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
                   PostgreSQL
                 </span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                {/* <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
                   Stripe API
-                </span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                </span> */}
+                {/* <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
                   Redux
-                </span>
+                </span> */}
               </div>
             </div>
 
@@ -475,70 +610,6 @@ function About() {
                 className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 GitHub
-              </a>
-            </div>
-          </div>
-
-          {/* Project 2 - Resume Sync */}
-          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
-            <div className="mb-4">
-              <h3 className="text-xl font-bold text-white mb-2">Resume Sync</h3>
-              <p className="text-gray-300 text-sm mb-4">
-                A full-stack web application that simulates real Applicant
-                Tracking Systems (ATS). The platform analyzes resumes against
-                job descriptions using keyword matching algorithms and provides
-                AI-powered suggestions via Ollama (llama3.2) for optimal keyword
-                placement. Built with MERN stack, implemented JWT
-                authentication, optimized AI response time by 3x (from 4s to
-                ~1s), and created secure file processing for PDF/DOCX/TXT
-                formats with automatic cleanup.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="text-lg font-semibold text-blue-400 mb-3">
-                Tech Stack
-              </h4>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  React 19
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  Vite
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  Node.js
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  Express.js
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  MongoDB
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  Ollama AI
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  Tailwind CSS
-                </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-                  JWT
-                </span>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <a
-                href="https://github.com/aloksisodiya/AI-Resume-Job-Description-Matcher"
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://ai-resume-job-description-matcher-v.vercel.app/"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
-              >
-                Live Demo
               </a>
             </div>
           </div>
