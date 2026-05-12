@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const resumePath = "/src/assets/resume.pdf";
+  const resumePath = "/resume.pdf";
 
   const navLinks = (
     <ul className="flex flex-col md:flex-row md:space-x-8 items-center text-white">
