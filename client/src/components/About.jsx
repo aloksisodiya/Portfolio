@@ -1,6 +1,107 @@
 import React, { useEffect, useRef, useState } from "react";
 import GalaxyBackground from "./GalaxyBackground";
-import profileImage from "../assets/profile.jpg";
+import profileImage from "../assets/photo1.jpeg";
+
+const SKILL_CATEGORIES = {
+  Programming: [
+    {
+      name: "JavaScript",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    },
+    {
+      name: "C",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+    },
+    {
+      name: "C++",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+    },
+    {
+      name: "Java",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    },
+    {
+      name: "Python",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    },
+  ],
+  Databases: [
+    {
+      name: "PostgreSQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    },
+    {
+      name: "MongoDB",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    },
+    {
+      name: "SQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    },
+    {
+      name: "NoSQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    },
+  ],
+  Frameworks: [
+    {
+      name: "React.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    },
+    {
+      name: "Node.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    },
+    {
+      name: "Express.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    },
+    {
+      name: "Tailwind CSS",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    },
+    {
+      name: "Bootstrap",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+    },
+  ],
+  /* "Machine Learning": [
+    {
+      name: "Python",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    },
+    {
+      name: "NumPy",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+    },
+    {
+      name: "Pandas",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+    },
+    {
+      name: "TensorFlow",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+    },
+  ], */
+  "Tools & Deployment": [
+    {
+      name: "Git & GitHub",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    },
+    {
+      name: "Postman",
+      icon: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg",
+    },
+    {
+      name: "Swagger",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg",
+    },
+    {
+      name: "Vercel",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    },
+  ],
+};
 
 function About() {
   // Intersection observer for scroll animations
@@ -40,6 +141,9 @@ function About() {
   // Typewriter effect logic
   const text = "Hello,I am Alok Sisodiya.";
   const [displayedText, setDisplayedText] = useState("");
+  const [activeSkillCategory, setActiveSkillCategory] = useState(
+    Object.keys(SKILL_CATEGORIES)[0],
+  );
   const idx = useRef(0);
 
   useEffect(() => {
@@ -54,57 +158,56 @@ function About() {
   }, [displayedText, text]);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 to-black relative">
+    <div className="w-full min-h-screen bg-gradient-to-br from-[#081126] via-[#0a1735] to-[#070f23] relative">
       <GalaxyBackground />
       <section
         id="home"
-        className="w-full flex flex-col md:flex-row items-center justify-center min-h-[500px] py-12 px-4"
+        className="scroll-mt-24 w-full flex flex-col md:flex-row items-center justify-center min-h-[500px] py-12 px-4"
       >
         {/* Profile Picture */}
         <div className="flex items-center justify-center w-full md:w-1/2 mb-8 md:mb-0">
-          <div className="w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center overflow-hidden shadow-2xl border-8 border-gray-800">
+          <div className="w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-blue-500 via-violet-500 to-fuchsia-500 flex items-center justify-center overflow-hidden shadow-2xl border-8 border-[#21385e]">
             <img
               src={profileImage}
               alt="Profile"
-              className="w-[370px] h-[370px] object-cover rounded-full"
+              className="w-[370px] h-[370px] object-cover object-[50%_15%] rounded-full"
             />
           </div>
         </div>
         {/* Info Section */}
-        <div className="flex flex-col justify-center w-full md:w-1/2 bg-black rounded-2xl shadow-2xl p-10 text-white mr-0 md:mr-10 max-w-xl">
+        <div className="flex flex-col justify-center w-full md:w-1/2 bg-[#14233f]/95 border border-[#32476b] rounded-2xl shadow-[0_20px_70px_rgba(8,14,30,0.55)] p-10 text-white mr-0 md:mr-10 max-w-xl">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 flex items-center">
             {displayedText}
             <span className="animate-pulse ml-1">|</span>
           </h1>
-          <h2 className="text-xl md:text-2xl font-semibold text-blue-400 mb-2">
+          <h2 className="text-xl md:text-2xl font-semibold text-violet-300 mb-2">
             Software Developer
           </h2>
-          <p className="mb-6 text-gray-300 text-base md:text-lg">
-            I am a full-stack software developer with a strong command of the
-            MERN stack (MongoDB, Express.js, React, and Node.js), dedicated to
-            building robust, scalable, and high-performance web applications. I
-            specialize in delivering intuitive, user-centric solutions that
-            align with modern business needs—balancing clean architecture,
-            responsive design, and backend efficiency. My focus is on crafting
-            production-grade systems that are both technically sound and
-            optimized for real-world impact.
-          </p>
+          <div className="mb-6 text-gray-300 text-base md:text-lg space-y-4">
+            <p>
+              I am an Engineering student passionate about Software Development, with hands-on experience in full-stack web development using the MERN stack. Skilled in JavaScript, React, Node.js, Express.js, and MongoDB, I also have a strong foundation in DSA, DBMS, Operating Systems, and Computer Networks. I enjoy building scalable solutions, solving real-world problems, and continuously learning new technologies while seeking opportunities to grow as a software developer through internships.
+            </p>
+          </div>
         </div>
       </section>
       {/* About Me Section */}
       <section
         id="about"
         ref={aboutMeRef}
-        className={`w-full flex flex-col items-center justify-center py-8 px-4 min-h-[300px] transition-all duration-1000 ${
+        className={`scroll-mt-24 w-full flex flex-col items-center justify-center py-8 px-4 min-h-[300px] transition-all duration-1000 ${
           aboutMeVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-16"
         }`}
       >
-        <h2 className="text-3xl font-bold text-center mb-2 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white">
           About Me
         </h2>
-        <p className="text-gray-300 text-base md:text-lg text-center max-w-3xl mb-4">
+        <p className="text-gray-300 text-lg mt-3 mb-5 text-center">
+          A quick snapshot of who I am and how I build.
+        </p>
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mb-8"></div>
+        <p className="text-gray-300 text-base md:text-lg text-center max-w-3xl mb-4 bg-[#1f2e4a]/95 border border-[#32476b] rounded-2xl p-6 md:p-8 shadow-[0_20px_80px_rgba(9,16,34,0.45)]">
           I'm a full-stack software developer specializing in the MERN
           stack—MongoDB, Express.js, React, and Node.js. I build scalable,
           high-performance web applications that solve real-world problems for
@@ -120,88 +223,58 @@ function About() {
       <section
         id="skills"
         ref={skillsRef}
-        className={`w-full flex flex-col items-center justify-center py-8 px-4 min-h-[400px] transition-all duration-1000 ${
+        className={`scroll-mt-24 w-full flex flex-col items-center justify-center py-12 px-4 min-h-[500px] transition-all duration-1000 ${
           skillsVisible
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-16"
         }`}
       >
-        <h2 className="text-3xl font-bold text-center mb-6 text-white">
-          Languages,Tools,Technology and Framework
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white">
+          My Tech Stack
         </h2>
-        <div className="flex flex-wrap gap-6 justify-center max-w-4xl">
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            C
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            C++
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Java
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            HTML
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            CSS
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Bootstrap
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Tailwind CSS
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            JavaScript
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            React.js
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Node.js
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Express.js
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            SQL
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            NoSQL
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            PostgreSQL
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            KnexJS
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            MongoDB
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            REST APIs
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Git & GitHub
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Postman
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Swagger UI
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Data Structures & Algorithm
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            DBMS
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Computer Networks
-          </span>
-          <span className="bg-gray-800 text-gray-100 px-4 py-2 rounded-full text-sm font-medium shadow transition duration-300 transform hover:bg-gray-900 hover:scale-110 hover:text-white cursor-pointer">
-            Operating System
-          </span>
+        <p className="text-gray-300 text-lg mt-3 mb-5 text-center">
+          Technologies I use to bring ideas to life.
+        </p>
+        <div className="h-1 w-28 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mb-10"></div>
+
+        <div className="flex flex-wrap gap-3 justify-center max-w-5xl mb-8">
+          {Object.keys(SKILL_CATEGORIES).map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => setActiveSkillCategory(category)}
+              className={`px-6 py-2.5 rounded-full text-sm md:text-base font-semibold transition duration-300 transform hover:scale-105 cursor-pointer ${
+                activeSkillCategory === category
+                  ? "bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-[0_8px_30px_rgba(139,92,246,0.35)]"
+                  : "bg-[#1b2b48] text-gray-300 hover:bg-[#223456]"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="w-full max-w-6xl rounded-3xl bg-[#1f2e4a]/95 border border-[#32476b] p-6 md:p-10 shadow-[0_20px_80px_rgba(9,16,34,0.5)]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {SKILL_CATEGORIES[activeSkillCategory].map((skill) => (
+              <div
+                key={skill.name}
+                className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-[#16233b] transition duration-300 transform hover:-translate-y-1 hover:bg-[#1b2d4c]"
+              >
+                <div className="w-16 h-16 rounded-xl bg-[#0f1b33] flex items-center justify-center shadow-inner">
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-9 h-9 object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <span className="text-gray-200 text-sm md:text-base font-medium text-center">
+                  {skill.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -209,27 +282,31 @@ function About() {
       <section
         id="experience"
         ref={workExperienceRef}
-        className={`w-full flex flex-col items-center justify-center py-8 px-4 min-h-[400px] transition-all duration-1000 ${
+        className={`scroll-mt-24 w-full flex flex-col items-center justify-center py-12 px-4 min-h-[400px] transition-all duration-1000 ${
           workExperienceVisible
             ? "opacity-100 translate-y-0"
             : "opacity-100 translate-y-0"
         }`}
       >
-        <h2 className="text-3xl font-bold text-center mb-8 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white">
           Work Experience
         </h2>
+        <p className="text-gray-300 text-lg mt-3 mb-5 text-center">
+          Practical experience building reliable production systems.
+        </p>
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mb-10"></div>
 
         <div className="max-w-6xl w-full">
           {/* Timeline Item 1 - InDhanPay */}
           <div className="flex flex-col md:flex-row items-start mb-12 relative">
             {/* Left side - Company Info */}
             <div className="md:w-1/2 pr-8 mb-6 md:mb-0">
-              <div className="bg-gray-800 rounded-xl p-6 shadow-lg border-l-4 border-green-500">
+              <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg border-l-4 border-violet-500">
                 <h3 className="text-xl font-bold text-white mb-2">
-                  InDhanPay Pvt. Ltd. (Intern)
+                  InDhan PayGate Pvt. Ltd. (Intern)
                 </h3>
                 <p className="text-gray-400 text-sm mb-1">Indore</p>
-                <p className="text-green-400 font-semibold mb-2">
+                <p className="text-violet-300 font-semibold mb-2">
                   Backend Developer
                 </p>
                 <p className="text-gray-300 text-sm">May 2025 - Dec 2025</p>
@@ -238,10 +315,10 @@ function About() {
 
             {/* Timeline Line */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 pointer-events-none">
-              <div className="h-full w-px bg-gray-600"></div>
-              <div className="absolute left-1/2 top-8 w-4 h-4 bg-green-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+              <div className="h-full w-px bg-[#3e5782]"></div>
+              <div className="absolute left-1/2 top-8 w-4 h-4 bg-violet-500 rounded-full transform -translate-x-1/2 border-4 border-[#09162f]"></div>
               <div
-                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.9)]"
+                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-violet-300 shadow-[0_0_14px_rgba(167,139,250,0.9)]"
                 style={{
                   top: `${experienceScrollProgress * 100}%`,
                   transform: "translate(-50%, -50%)",
@@ -251,13 +328,13 @@ function About() {
 
             {/* Right side - Work Description */}
             <div className="md:w-1/2 pl-8">
-              <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
-                <h4 className="text-lg font-semibold text-green-400 mb-3">
+              <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg">
+                <h4 className="text-lg font-semibold text-violet-300 mb-3">
                   Key Contributions
                 </h4>
                 <ul className="text-gray-300 mb-4 space-y-2 text-sm">
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Led the design and development of a real-time role-based
                       notification system using AWS SNS and Firebase Cloud
@@ -266,7 +343,7 @@ function About() {
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Developed and optimized RESTful APIs using Node.js and
                       Express.js, reducing latency by up to 80% and improving
@@ -274,7 +351,7 @@ function About() {
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Refactored and optimized complex PostgreSQL queries,
                       achieving 30-50% faster response times and enhanced
@@ -282,7 +359,7 @@ function About() {
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Created and maintained API documentation using Swagger
                       (OpenAPI), improving developer experience, cross-team
@@ -290,7 +367,7 @@ function About() {
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Integrated AWS S3 for secure file storage, implementing
                       image compression and file optimization techniques to
@@ -298,7 +375,7 @@ function About() {
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
+                    <span className="text-violet-300 mr-2">•</span>
                     <span>
                       Applied software engineering best practices, including
                       system design, performance tuning, and code optimization
@@ -307,34 +384,34 @@ function About() {
                   </li>
                 </ul>
                 <div className="flex flex-wrap gap-2">
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Node.js
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Express.js
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     PostgreSQL
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Knex.js
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Git
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     GitHub
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     AWS SNS
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     FCM
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     AWS S3
                   </span>
-                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Swagger (OpenAPI)
                   </span>
                 </div>
@@ -346,11 +423,11 @@ function About() {
           <div className="flex flex-col md:flex-row items-start relative">
             {/* Left side - Company Info */}
             <div className="md:w-1/2 pr-8 mb-6 md:mb-0">
-              <div className="bg-gray-800 rounded-xl p-6 shadow-lg border-l-4 border-blue-500">
+              <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg border-l-4 border-cyan-400">
                 <h3 className="text-xl font-bold text-white mb-2">
                   E-Notebook Project
                 </h3>
-                <p className="text-blue-400 font-semibold mb-2">
+                <p className="text-cyan-300 font-semibold mb-2">
                   Frontend Developer Intern
                 </p>
                 <p className="text-gray-300 text-sm">Jan 2025 - Feb 2025</p>
@@ -359,10 +436,10 @@ function About() {
 
             {/* Timeline Line */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 pointer-events-none">
-              <div className="h-full w-px bg-gray-600"></div>
-              <div className="absolute left-1/2 top-8 w-4 h-4 bg-blue-500 rounded-full transform -translate-x-1/2 border-4 border-gray-900"></div>
+              <div className="h-full w-px bg-[#3e5782]"></div>
+              <div className="absolute left-1/2 top-8 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 border-4 border-[#09162f]"></div>
               <div
-                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.9)]"
+                className="absolute left-1/2 w-2.5 h-2.5 rounded-full bg-cyan-300 shadow-[0_0_14px_rgba(103,232,249,0.9)]"
                 style={{
                   top: `${experienceScrollProgress * 100}%`,
                   transform: "translate(-50%, -50%)",
@@ -372,8 +449,8 @@ function About() {
 
             {/* Right side - Work Description */}
             <div className="md:w-1/2 pl-8">
-              <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
-                <h4 className="text-lg font-semibold text-blue-400 mb-3">
+              <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg">
+                <h4 className="text-lg font-semibold text-cyan-300 mb-3">
                   Key Contributions
                 </h4>
                 <p className="text-gray-300 mb-4">
@@ -384,19 +461,19 @@ function About() {
                   performance.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     HTML
                   </span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     CSS
                   </span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     JavaScript
                   </span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     Git
                   </span>
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                  <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                     GitHub
                   </span>
                 </div>
@@ -409,15 +486,19 @@ function About() {
       {/* Projects Section */}
       <section
         id="projects"
-        className="w-full flex flex-col items-center justify-center py-8 px-4 min-h-[400px]"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center py-12 px-4 min-h-[400px]"
       >
-        <h2 className="text-3xl font-bold text-center mb-8 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white">
           Projects
         </h2>
+        <p className="text-gray-300 text-lg mt-3 mb-5 text-center">
+          Products and platforms I have built end-to-end.
+        </p>
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mb-10"></div>
 
         <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Project 1 - n8n Exchange */}
-          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+          <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">
                 n8n Exchange - Automated Cryptocurrency Trading Platform
@@ -450,23 +531,23 @@ function About() {
             </div>
 
             <div className="mb-4">
-              <h4 className="text-lg font-semibold text-emerald-400 mb-3">
+              <h4 className="text-lg font-semibold text-violet-300 mb-3">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   MERN
                 </span>
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   WebSockets
                 </span>
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Socket.io
                 </span>
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Firebase Auth
                 </span>
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   CoinMarketCap API
                 </span>
               </div>
@@ -475,7 +556,7 @@ function About() {
             <div className="flex gap-3">
               <a
                 href="https://github.com/aloksisodiya/n8n-exchange"
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+                className="flex-1 bg-[#22385f] hover:bg-[#2b4774] text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 GitHub
               </a>
@@ -483,7 +564,7 @@ function About() {
           </div>
 
           {/* Project 2 - Resume Sync */}
-          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+          <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">
                 ResumeSync - AI-Powered ATS Resume Matcher
@@ -513,35 +594,35 @@ function About() {
             </div>
 
             <div className="mb-4">
-              <h4 className="text-lg font-semibold text-blue-400 mb-3">
+              <h4 className="text-lg font-semibold text-cyan-300 mb-3">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   React 19
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   MERN Stack
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Node.js
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Express.js
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   MongoDB
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Groq AI
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Google OAuth 2.0
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   JWT
                 </span>
-                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#20375a] text-cyan-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   OTP Recovery
                 </span>
               </div>
@@ -550,13 +631,13 @@ function About() {
             <div className="flex gap-3">
               <a
                 href="https://github.com/aloksisodiya/AI-Resume-Job-Description-Matcher"
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+                className="flex-1 bg-[#22385f] hover:bg-[#2b4774] text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 GitHub
               </a>
               <a
                 href="https://ai-resume-job-description-matcher-v.vercel.app/"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+                className="flex-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 Live Demo
               </a>
@@ -564,7 +645,7 @@ function About() {
           </div>
 
           {/* Project 3 - E-commerce */}
-          <div className="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+          <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">
                 E-commerce Platform
@@ -579,20 +660,20 @@ function About() {
             </div>
 
             <div className="mb-4">
-              <h4 className="text-lg font-semibold text-purple-400 mb-3">
+              <h4 className="text-lg font-semibold text-violet-300 mb-3">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   React.js
                 </span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Node.js
                 </span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   Express.js
                 </span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                <span className="bg-[#22385f] text-violet-100 px-3 py-1 rounded-full text-xs border border-[#355686]">
                   PostgreSQL
                 </span>
                 {/* <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
@@ -607,7 +688,7 @@ function About() {
             <div className="flex gap-3">
               <a
                 href="https://github.com/aloksisodiya/ECommerce"
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
+                className="flex-1 bg-[#22385f] hover:bg-[#2b4774] text-white py-2 px-4 rounded-lg text-center transition duration-300 text-sm"
               >
                 GitHub
               </a>
@@ -619,11 +700,15 @@ function About() {
       {/* Contact Me Section */}
       <section
         id="contact"
-        className="w-full flex flex-col items-center justify-center py-12 px-4 min-h-[400px]"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center py-12 px-4 min-h-[400px]"
       >
-        <h2 className="text-3xl font-bold text-center mb-8 text-white">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-white">
           Connect With Me
         </h2>
+        <p className="text-gray-300 text-lg mt-3 mb-5 text-center">
+          Let us connect and build something impactful together.
+        </p>
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mb-10"></div>
 
         <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* LinkedIn Card */}
@@ -631,9 +716,9 @@ function About() {
             href="https://www.linkedin.com/in/alok-sisodiya-095431218/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
+            className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
           >
-            <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-700 transition duration-300">
+            <div className="w-20 h-20 bg-[#22385f] rounded-full flex items-center justify-center mb-4 group-hover:bg-[#2b4774] transition duration-300">
               <svg
                 className="w-10 h-10 text-white"
                 fill="currentColor"
@@ -651,9 +736,9 @@ function About() {
             href="https://x.com/AlokSisodiya10"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
+            className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
           >
-            <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center mb-4 group-hover:bg-gray-900 transition duration-300">
+            <div className="w-20 h-20 bg-[#0f1b33] rounded-full flex items-center justify-center mb-4 group-hover:bg-[#1a2945] transition duration-300">
               <svg
                 className="w-10 h-10 text-white"
                 fill="currentColor"
@@ -671,9 +756,9 @@ function About() {
             href="https://github.com/aloksisodiya"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
+            className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center justify-center text-center group"
           >
-            <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center mb-4 group-hover:bg-gray-600 transition duration-300">
+            <div className="w-20 h-20 bg-[#22385f] rounded-full flex items-center justify-center mb-4 group-hover:bg-[#2b4774] transition duration-300">
               <svg
                 className="w-10 h-10 text-white"
                 fill="currentColor"
@@ -689,7 +774,7 @@ function About() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full bg-gray-900 border-t border-gray-700 py-8 px-4">
+      <footer className="w-full bg-[#0a1630] border-t border-[#32476b] py-8 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* About Section */}
@@ -706,7 +791,7 @@ function About() {
                   href="https://www.linkedin.com/in/alok-sisodiya-095431218"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-400 transition duration-200"
+                  className="text-gray-400 hover:text-violet-300 transition duration-200"
                   aria-label="LinkedIn"
                 >
                   <svg
@@ -725,7 +810,7 @@ function About() {
                   href="https://github.com/aloksisodiya"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-400 transition duration-200"
+                  className="text-gray-400 hover:text-violet-300 transition duration-200"
                   aria-label="GitHub"
                 >
                   <svg
@@ -744,7 +829,7 @@ function About() {
                   href="https://x.com/AlokSisodiya10"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-400 transition duration-200"
+                  className="text-gray-400 hover:text-violet-300 transition duration-200"
                   aria-label="Twitter"
                 >
                   <svg
@@ -766,7 +851,7 @@ function About() {
               <div className="space-y-2">
                 <a
                   href="mailto:alok.sisodiya07@gmail.com"
-                  className="flex items-center justify-center md:justify-end text-gray-400 hover:text-white transition duration-200 text-sm"
+                  className="flex items-center justify-center md:justify-end text-gray-400 hover:text-violet-200 transition duration-200 text-sm"
                 >
                   <svg
                     className="w-4 h-4 mr-2"
@@ -789,7 +874,7 @@ function About() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="mt-8 pt-6 border-t border-gray-700">
+          <div className="mt-8 pt-6 border-t border-[#32476b]">
             <div className="flex flex-col md:flex-row justify-center items-center">
               <p className="text-gray-400 text-sm mb-4 md:mb-0">
                 © {new Date().getFullYear()} Alok Sisodiya. All rights reserved.
