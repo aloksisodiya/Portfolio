@@ -501,7 +501,7 @@ function About() {
           <div className="bg-[#1f2e4a]/95 border border-[#32476b] rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-white mb-2">
-                n8n Exchange - Automated Cryptocurrency Trading Platform
+                AlgoTradeX-Real-Time Automated Crypto Trading Platform 
               </h3>
               <p className="text-gray-300 text-sm mb-4">
                 Built a full-stack automated trading platform with React.js,
